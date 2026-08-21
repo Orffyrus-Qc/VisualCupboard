@@ -1,25 +1,12 @@
 # Visual Cupboard
 
-<img src="Images/icon.png" alt="Visual Cupboard icon" width="128" height="128">
+Shows a visual sphere of building privilege radius on nearby tool cupboards.
 
-![Visual Cupboard banner](Images/banner.jpg)
-
-![Individual foundation claim](Images/foundation-claim.jpg)
-
-Shows a visual claim sphere on **each connected building block**, not one circle around the tool cupboard.
-
-In modern Rust, building privilege is projected from the building: every connected block extends the claim. This plugin draws a sphere on each of those blocks so the shape of the visual follows the base.
-
-This is a rebuilt and maintained version of [Visual Cupboard Radius](https://umod.org/plugins/visual-cupboard-radius) by ColonBlow. Credit to the original author. The original only drew one sphere on the cupboard. This rebuild:
-
-- Looks up the cupboard's building via `BuildingManager`
-- Spawns a claim sphere on each connected decay/building entity
-- Skips spheres whose volume is fully covered by neighbors (`IsRedundant`)
+This is a rebuilt and maintained version of [Visual Cupboard Radius](https://umod.org/plugins/visual-cupboard-radius) by ColonBlow. Credit to the original author. This rebuild attaches spheres to building entities, skips fully overlapping spheres.
 
 ## Features
 
-- Per-block visual claim spheres for the connected-building privilege system
-- Draw spheres on cupboards you own
+- Draw a visual sphere around building privilege for cupboards you own
 - Optionally show spheres to everyone nearby
 - Admin command to show all nearby cupboards plus owner names
 - Admin command to remove all visual spheres
@@ -36,17 +23,19 @@ oxide.grant user <name or steamid> visualcupboard.admin
 oxide.grant group default visualcupboard.allowed
 ```
 
-- `visualcupboard.allowed` — use `/showsphere` and `/showsphereall`
-- `visualcupboard.admin` — use `/showsphereadmin` and `/killsphere`, and also use the player commands
+- `visualcupboard.allowed` â€” use `/showsphere` and `/showsphereall`
+- `visualcupboard.admin` â€” use `/showsphereadmin` and `/killsphere`, and also use the player commands
+
+*Optional tool -  https://codefling.com/plugins/permissions-manager
 
 ## Commands
 
 Chat commands use a `/` prefix. Console commands use the same names without `/`.
 
-- `/showsphere` — show building privilege spheres on your owned cupboards within range. Only you can see them
-- `/showsphereall` — same as `/showsphere`, but other players can also see the spheres
-- `/showsphereadmin` — admin: show spheres on all nearby cupboards, visible to everyone, and print cupboard owner names
-- `/killsphere` — admin: destroy all visual spheres from this plugin
+- `/showsphere` â€” show building privilege spheres on your owned cupboards within range. Only you can see them
+- `/showsphereall` â€” same as `/showsphere`, but other players can also see the spheres
+- `/showsphereadmin` â€” admin: show spheres on all nearby cupboards, visible to everyone, and print cupboard owner names
+- `/killsphere` â€” admin: destroy all visual spheres from this plugin
 
 ## Configuration
 
@@ -80,7 +69,7 @@ Do not install this alongside the original Visual Cupboard Radius plugin. Both u
 ## Notes
 
 - Spheres are a visual aid. They do not change actual building privilege.
-- Privilege follows the building, not a circle around the cupboard. This rebuild draws spheres on building entities and skips spheres fully covered by neighbors.
+- Privilege in current Rust follows the building, not a perfect circle around the cupboard. This rebuild draws spheres on building entities instead of only the cupboard itself, which is closer to real coverage than the original static cupboard sphere.
 - Original plugin: [Visual Cupboard Radius by ColonBlow](https://umod.org/plugins/visual-cupboard-radius)
 
 ## License
