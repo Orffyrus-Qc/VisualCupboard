@@ -1,5 +1,7 @@
 # Visual Cupboard
 
+![Visual Cupboard banner](Images/banner.jpg)
+
 Shows a visual claim radius on **each connected building block**, matching current Rust cupboard privilege.
 
 In modern Rust, building privilege is no longer a single circle around the tool cupboard. It follows the building: every connected block extends the claim. This plugin draws a sphere on each of those blocks so the visual matches that mechanic.
