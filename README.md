@@ -1,5 +1,7 @@
 # Visual Cupboard
 
+<img src="Images/icon.jpg" alt="Visual Cupboard icon" width="128" height="128">
+
 ![Visual Cupboard banner](Images/banner.jpg)
 
 ![Individual foundation claim](Images/foundation-claim.jpg)
