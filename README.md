@@ -1,6 +1,6 @@
 # Visual Cupboard
 
-<img src="Images/icon.jpg" alt="Visual Cupboard icon" width="128" height="128">
+<img src="Images/icon.png" alt="Visual Cupboard icon" width="128" height="128">
 
 ![Visual Cupboard banner](Images/banner.jpg)
 
