@@ -1,0 +1,12 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+oxide/data/
+oxide/config/
+oxide/logs/
+*.dll
+*.pdb
+.DS_Store
+Thumbs.db
