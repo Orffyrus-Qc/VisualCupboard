@@ -1,12 +1,20 @@
 # Visual Cupboard
 
-Shows a visual sphere of building privilege radius on nearby tool cupboards.
+Shows a visual claim radius on **each connected building block**, matching current Rust cupboard privilege.
 
-This is a rebuilt and maintained version of [Visual Cupboard Radius](https://umod.org/plugins/visual-cupboard-radius) by ColonBlow. Credit to the original author. This rebuild attaches spheres to building entities, skips fully overlapping spheres, and uses a larger default radius (34) that better matches current building privilege coverage.
+In modern Rust, building privilege is no longer a single circle around the tool cupboard. It follows the building: every connected block extends the claim. This plugin draws a sphere on each of those blocks so the visual matches that mechanic.
+
+This is a rebuilt and maintained version of [Visual Cupboard Radius](https://umod.org/plugins/visual-cupboard-radius) by ColonBlow. Credit to the original author. The original only drew one sphere on the cupboard. This rebuild:
+
+- Looks up the cupboard's building via `BuildingManager`
+- Spawns a claim sphere on each connected decay/building entity
+- Skips blocks whose radius is already fully covered by neighbors (`IsRedundant`)
+- Uses a default radius of 34m, closer to current privilege coverage
 
 ## Features
 
-- Draw a visual sphere around building privilege for cupboards you own
+- Per-block visual claim radius for the new connected-building privilege system
+- Draw spheres on cupboards you own
 - Optionally show spheres to everyone nearby
 - Admin command to show all nearby cupboards plus owner names
 - Admin command to remove all visual spheres
