@@ -15,7 +15,6 @@ This is a rebuilt and maintained version of [Visual Cupboard Radius](https://umo
 - Looks up the cupboard's building via `BuildingManager`
 - Spawns a claim sphere on each connected decay/building entity
 - Skips spheres whose volume is fully covered by neighbors (`IsRedundant`)
-- Uses a default **visual** radius of 34m (the original plugin used 25). In-game privilege from each block is about **16m**; 34 is easier to see, not the game distance.
 
 ## Features
 
@@ -64,7 +63,7 @@ Default config (`oxide/config/VisualCupboard.json`):
 
 | Option | Default | Description |
 | --- | --- | --- |
-| My Privilege Radius per Block is (16 is default) | 34.0 | Visual sphere radius in meters. Game privilege is about 16m per block; 34 is the default visual size |
+| My Privilege Radius per Block is (16 is default) | 34.0 | Sphere radius in meters |
 | Show Visuals On Cupboards Withing Range Of | 50.0 | How far from the player to search for cupboards |
 | Show Visuals For This Long | 60.0 | How long spheres stay visible, in seconds |
 | How Dark to make Visual Cupboard | 1 | How many overlapping spheres to spawn (higher = darker / easier to see) |
@@ -82,7 +81,6 @@ Do not install this alongside the original Visual Cupboard Radius plugin. Both u
 
 - Spheres are a visual aid. They do not change actual building privilege.
 - Privilege follows the building, not a circle around the cupboard. This rebuild draws spheres on building entities and skips spheres fully covered by neighbors.
-- Default visual radius is 34m (old plugin: 25m). Actual privilege range is about 16m per block. Set the config to 16 if you want the spheres to match the game distance.
 - Original plugin: [Visual Cupboard Radius by ColonBlow](https://umod.org/plugins/visual-cupboard-radius)
 
 ## License
