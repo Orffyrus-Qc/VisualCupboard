@@ -1,11 +1,5 @@
 # Visual Cupboard
 
-<img src="Images/icon.png" alt="Visual Cupboard icon" width="128" height="128">
-
-![Visual Cupboard banner](Images/banner.jpg)
-
-![Individual foundation claim](Images/foundation-claim.jpg)
-
 Shows a visual claim sphere on each connected building block, not one circle around the tool cupboard.
 
 In modern Rust, building privilege is projected from the building: every connected block extends the claim. This plugin draws a sphere on each of those blocks so the shape of the visual follows the base.
