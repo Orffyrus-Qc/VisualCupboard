@@ -24,9 +24,9 @@ This is a rebuilt and maintained version of [Visual Cupboard Radius](https://umo
 
 This plugin uses the Oxide permission system.
 
-oxide.grant user <name or steamid> visualcupboard.allowed
-oxide.grant user <name or steamid> visualcupboard.admin
-oxide.grant group default visualcupboard.allowed
+- oxide.grant user <name or steamid> visualcupboard.allowed
+- oxide.grant user <name or steamid> visualcupboard.admin
+- oxide.grant group default visualcupboard.allowed
 
 - visualcupboard.allowed: use /showsphere and /showsphereall
 - visualcupboard.admin: use /showsphereadmin and /killsphere, and also use the player commands
@@ -44,10 +44,10 @@ Chat commands use a / prefix. Console commands use the same names without /.
 
 Default config (oxide/config/VisualCupboard.json):
 
-My Privilege Radius per Block is (16 is default): 34.0
-Show Visuals On Cupboards Withing Range Of: 50.0
-Show Visuals For This Long: 60.0
-How Dark to make Visual Cupboard: 1
+- My Privilege Radius per Block is (16 is default): 34.0
+- Show Visuals On Cupboards Withing Range Of: 50.0
+- Show Visuals For This Long: 60.0
+- How Dark to make Visual Cupboard: 1
 
 - Radius: sphere size in meters
 - Range: how far from the player to search for cupboards
