@@ -7,8 +7,8 @@ using System.Linq;
 
 namespace Oxide.Plugins
 {
-    [Info("Visual Cupboard", "Orffyrus", "1.0.15")]
-    [Description("Shows a visual claim radius on each connected building block, matching current Rust cupboard privilege")]
+    [Info("Visual Cupboard", "Orffyrus", "1.0.16")]
+    [Description("Shows a visual claim sphere on each connected building block instead of one circle around the tool cupboard")]
     class VisualCupboard : RustPlugin
     {
 
