@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Oxide.Plugins
 {
-    [Info("Visual Cupboard", "Orffyrus", "1.0.16")]
+    [Info("Visual Cupboard", "Orffyrus", "1.1.0")]
     [Description("Shows a visual claim sphere on each connected building block instead of one circle around the tool cupboard")]
     class VisualCupboard : RustPlugin
     {
@@ -46,8 +46,43 @@ namespace Oxide.Plugins
         private float DurationToShowRadius = 60f;
         private float ShowCupboardsWithinRangeOf = 50f;
         private int VisualDarkness = 1;
+        private static string SphereColorName = "Blue";
+        private static bool AlsoSpawnStandardFill = false;
+        private static string SpherePrefab = PrefabBlue;
+
+        private const string PrefabStandard = "assets/prefabs/visualization/sphere.prefab";
+        private const string PrefabBlue = "assets/bundled/prefabs/modding/events/twitch/br_sphere.prefab";
+        private const string PrefabRed = "assets/bundled/prefabs/modding/events/twitch/br_sphere_red.prefab";
+        private const string PrefabGreen = "assets/bundled/prefabs/modding/events/twitch/br_sphere_green.prefab";
+        private const string PrefabPurple = "assets/bundled/prefabs/modding/events/twitch/br_sphere_purple.prefab";
 
         private static bool serverInitialized = false;
+
+        private static string PrefabForColor(string color)
+        {
+            if (string.IsNullOrEmpty(color))
+                return PrefabBlue;
+
+            switch (color.Trim().ToLowerInvariant())
+            {
+                case "standard":
+                case "grey":
+                case "gray":
+                case "white":
+                    return PrefabStandard;
+                case "red":
+                    return PrefabRed;
+                case "green":
+                    return PrefabGreen;
+                case "purple":
+                    return PrefabPurple;
+                case "blue":
+                case "cyan":
+                case "shield":
+                default:
+                    return PrefabBlue;
+            }
+        }
 
         private void LoadConfigVariables()
         {
@@ -55,6 +90,9 @@ namespace Oxide.Plugins
             CheckCfgFloat("Show Visuals On Cupboards Withing Range Of", ref ShowCupboardsWithinRangeOf);
             CheckCfgFloat("Show Visuals For This Long", ref DurationToShowRadius);
             CheckCfg("How Dark to make Visual Cupboard", ref VisualDarkness);
+            CheckCfg("Sphere Color (Blue, Standard, Red, Green, Purple)", ref SphereColorName);
+            CheckCfg("Also spawn standard fill sphere", ref AlsoSpawnStandardFill);
+            SpherePrefab = PrefabForColor(SphereColorName);
         }
 
         private void LoadVariables()
@@ -106,12 +144,11 @@ namespace Oxide.Plugins
 
         private class ToolCupboardSphere : MonoBehaviour
         {
-            private BaseEntity sphere;
+            private readonly List<BaseEntity> spheres = new List<BaseEntity>();
             private BaseEntity entity;
             public bool showall;
             private Vector3 pos = new Vector3(0, 0, 0);
             private Quaternion rot = new Quaternion();
-            private string strPrefab = "assets/prefabs/visualization/sphere.prefab";
 
             private void Awake()
             {
@@ -121,21 +158,44 @@ namespace Oxide.Plugins
             private void SpawnSphere()
             {
                 entity = GetComponent<BaseEntity>();
-                sphere = GameManager.server.CreateEntity(strPrefab, pos, rot, true);
+                SpawnOne(SpherePrefab);
+                if (AlsoSpawnStandardFill && !string.Equals(SpherePrefab, PrefabStandard, StringComparison.OrdinalIgnoreCase))
+                    SpawnOne(PrefabStandard);
+            }
+
+            private void SpawnOne(string prefab)
+            {
+                BaseEntity sphere = GameManager.server.CreateEntity(prefab, pos, rot, true);
+                if (sphere == null && prefab != PrefabStandard)
+                    sphere = GameManager.server.CreateEntity(PrefabStandard, pos, rot, true);
+                if (sphere == null)
+                    return;
+
                 SphereEntity ball = sphere.GetComponent<SphereEntity>();
-                ball.OwnerID = entity.OwnerID;
-                ball.currentRadius = 1f;
-                ball.lerpRadius = UseCupboardRadius;
-                ball.lerpSpeed = 100f;
+                if (ball != null)
+                {
+                    ball.OwnerID = entity.OwnerID;
+                    ball.currentRadius = 1f;
+                    ball.lerpRadius = UseCupboardRadius;
+                    ball.lerpSpeed = 100f;
+                }
+
+                sphere.OwnerID = entity.OwnerID;
+                sphere.enableSaving = false;
                 showall = false;
                 sphere.SetParent(entity);
                 sphere.Spawn();
+                spheres.Add(sphere);
             }
 
             private void OnDestroy()
             {
-                if (sphere == null) return;
-                sphere.Kill(BaseNetworkable.DestroyMode.None);
+                foreach (BaseEntity sphere in spheres)
+                {
+                    if (sphere != null && !sphere.IsDestroyed)
+                        sphere.Kill(BaseNetworkable.DestroyMode.None);
+                }
+                spheres.Clear();
             }
 
         }

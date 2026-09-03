@@ -8,15 +8,25 @@ Shows a visual claim sphere on each connected building block, not one circle aro
 
 In modern Rust, building privilege is projected from the building: every connected block extends the claim. This plugin draws a sphere on each of those blocks so the shape of the visual follows the base.
 
+Version 1.1.0 uses a blue shield globe with a quadrillage overlay (latitude/longitude grid), matching the in-game look below. Color is configurable.
+
+![In-game blue shield spheres](Images/in-game-blue-shield.png)
+
+![In-game overlapping claim grid](Images/in-game-claim-grid.png)
+
 This is a rebuilt and maintained version of [Visual Cupboard Radius](https://umod.org/plugins/visual-cupboard-radius) by ColonBlow. Credit to the original author. The original only drew one sphere on the cupboard. This rebuild:
 
 - Looks up the cupboard's building
 - Spawns a claim sphere on each connected building entity
 - Skips spheres whose volume is fully covered by neighbors
+- Draws a blue shield sphere with a grid overlay (configurable color)
 
 ## Features
 
 - Per-block visual claim spheres
+- Blue shield globe with quadrillage overlay (default)
+- Configurable sphere colors: Blue, Standard, Red, Green, Purple
+- Optional extra standard fill sphere under the colored globe
 - Draw spheres on cupboards you own
 - Optionally show spheres to everyone nearby
 - Admin command to show all nearby cupboards plus owner names
@@ -52,11 +62,15 @@ Default config (oxide/config/VisualCupboard.json):
 - Show Visuals On Cupboards Withing Range Of: 50.0
 - Show Visuals For This Long: 60.0
 - How Dark to make Visual Cupboard: 1
+- Sphere Color (Blue, Standard, Red, Green, Purple): Blue
+- Also spawn standard fill sphere: false
 
 - Radius: sphere size in meters
 - Range: how far from the player to search for cupboards
 - Duration: how long spheres stay visible, in seconds
 - Darkness: how many overlapping spheres to spawn (higher = easier to see)
+- Sphere Color: Blue is the shield globe with grid overlay. Standard is the old grey bubble. Red, Green, and Purple are the other colored globes.
+- Also spawn standard fill sphere: true stacks the old grey bubble under the colored globe
 
 ## Installation
 
